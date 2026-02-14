@@ -21,7 +21,7 @@ spec:
         tier: database
     spec:
       containers:
-      - image: mysql:5.6.51
+      - image: mysql:8.0
         name: mysql
         env:
         - name: MYSQL_DATABASE
@@ -33,7 +33,7 @@ spec:
         - name: MYSQL_RANDOM_ROOT_PASSWORD
           value: "yes"
         volumeMounts:
-        - mountPath: /var/lib/mysql/data
+        - mountPath: /var/lib/mysql
           name: mysql-db
         livenessProbe:
           tcpSocket:
