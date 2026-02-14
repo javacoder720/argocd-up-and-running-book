@@ -31,7 +31,7 @@ spec:
             maxDuration: 3m0s
             factor: 2
       source:
-        javacoder720/argocd-up-and-running-book: '{{gitRepo}}'
+        repoURL: '{{gitRepo}}'
         targetRevision: '{{appBranch}}'
         path: '{{appPath}}/{{overlay}}'
       destination:

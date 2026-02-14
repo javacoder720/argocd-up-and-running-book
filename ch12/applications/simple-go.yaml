@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    javacoder720/argocd-up-and-running-book: https://git.upandrunning.local/upandrunning/simple-go
+    repoURL: https://git.upandrunning.local/upandrunning/simple-go
     targetRevision: main
     path: deploy/overlays/default
   destination:

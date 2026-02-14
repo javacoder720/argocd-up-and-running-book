@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: manifests
-    javacoder720/argocd-up-and-running-book: https://git.upandrunning.local/upandrunning/ch09-tls.git
+    repoURL: https://git.upandrunning.local/upandrunning/ch09-tls.git
     targetRevision: HEAD
   syncPolicy:
     automated:

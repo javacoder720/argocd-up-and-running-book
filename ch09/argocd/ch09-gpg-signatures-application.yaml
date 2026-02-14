@@ -12,7 +12,7 @@ spec:
   project: ch09-gpg
   source:
     path: manifests
-    javacoder720/argocd-up-and-running-book: https://git.upandrunning.local/upandrunning/ch09-gpg-signatures.git
+    repoURL: https://git.upandrunning.local/upandrunning/ch09-gpg-signatures.git
     targetRevision: HEAD
   syncPolicy:
     automated:
