@@ -13,7 +13,8 @@ spec:
     matchLabels:
       app: mysql
       tier: database
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
