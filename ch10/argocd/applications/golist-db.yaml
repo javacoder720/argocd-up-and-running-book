@@ -8,7 +8,7 @@ metadata:
 spec:
   source:
     path: ch10/apps/golist-db
-    repoURL: 'https://github.com/sabre1041/argocd-up-and-running-book'
+    repoURL: 'https://github.com/javacoder720/argocd-up-and-running-book'
     targetRevision: main
   destination:
     namespace: golist

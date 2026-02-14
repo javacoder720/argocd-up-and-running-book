@@ -6,7 +6,7 @@ metadata:
 spec:
   project: ch09-impersonation
   source:
-    repoURL: https://github.com/sabre1041/argocd-up-and-running-book
+    repoURL: https://github.com/javacoder720/argocd-up-and-running-book
     targetRevision: main
     path: ch09/manifests/nginx
   destination:
