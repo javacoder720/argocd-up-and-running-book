@@ -1,0 +1,9 @@
+# Define Policies for a new role called role:developers
+p, role:developers, applications, *, */*, allow
+p, role:developers, applicationsets, *, */*, allow
+p, role:developers, clusters, get, *, allow
+p, role:developers, repositories, get, *, allow
+p, role:developers, certificates, get, *, allow
+
+# Apply the role:developers role to Developers group
+g, /Developers, role:developers

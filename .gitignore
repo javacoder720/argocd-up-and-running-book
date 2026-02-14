@@ -1,0 +1,14 @@
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+
+# Secrets
+*.env
+*secret*
+
+# Keycloak realm config
+ch06/charts/keycloak/templates/keycloakrealm.yaml
+
+# macOS
+.DS_Store
