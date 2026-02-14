@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: app-of-apps/apps
-    repoURL: https://github.com/christianh814/gitops-examples
+    javacoder720/argocd-up-and-running-book: https://github.com/christianh814/gitops-examples
     targetRevision: main
   syncPolicy:
     automated:
