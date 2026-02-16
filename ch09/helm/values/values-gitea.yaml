@@ -29,5 +29,7 @@ gitea:
     enabled: false
   postgresql:
     enabled: true
+    image:
+      tag: "16"
   redis-cluster:
     enabled: false

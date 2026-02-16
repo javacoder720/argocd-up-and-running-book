@@ -12,3 +12,8 @@ ch06/charts/keycloak/templates/keycloakrealm.yaml
 
 # macOS
 .DS_Store
+
+# ssh
+argocd_ssh**
+# pgp
+*.pgp
