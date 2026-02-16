@@ -10,13 +10,32 @@ data:
     metadata:
       name: kustomize-helm
     spec:
-      generate:
-        args: 
-          - "/bin/sh"
-          - "-c"
+      parameters:
+        static:
+          - name: replica_count
+            title: Replica Count
+            tooltip: "Number of replicas to set in the generated manifests"
+          - name: environment
+            title: Deployment Environment
+            tooltip: "Target environment (e.g., prod, stage, dev)"
+      init:
+        command: ["/bin/sh", "-c"]
+        args:
           - |
-            PARMS="replica_count=${ARGOCD_APP_PARAMETER_replica_count}, environment=${ARGOCD_APP_PARAMETER_environment}"
+            wget -O /tmp/yq https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64 && \
+            chmod +x /tmp/yq
+      generate:
+        command: ["/bin/sh", "-c"]
+        args: 
+          - |
+            # Gather all ARGOCD_ENV_ variables and strip prefix
+            ENV_CONTENT=$(env | grep "^ARGOCD_ENV_" | sed "s/^ARGOCD_ENV_//" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            # Gather all ARGOCD_APP_PARAMETER_ variables and strip prefix
+            PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed "s/^ARGOCD_APP_PARAMETER_//" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            
             kustomize build --enable-helm | \
-            sed "s/PLACEHOLDER_ENV/${ARGOCD_ENV_RELEASE_STAGE}/g" | \
-            sed "s/PLACEHOLDER_PARAMS/${PARMS}/g"
+            /tmp/yq "
+              .data.env = \"\n${ENV_CONTENT}\" |
+              .data.params = \"\n${PARAM_CONTENT}\"
+            "
 

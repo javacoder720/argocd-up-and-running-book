@@ -21,4 +21,12 @@ kubectl get cm kustomize-helm -n kustomize-helm -oyaml
 # changes to CMP
 kubectl apply -f ch11/configmanagementplugins/kustomize-helm-plugin.yml
 kubectl -n argocd rollout restart deployment argocd-repo-server
+kubectl rollout pause deployment/argocd-repo-server
 kubectl apply -f ch11/configmanagementplugins/kustomize-helm-app.yaml
+
+# test if yq avail
+kubectl exec -n argocd -it deployments/argocd-repo-server -c kustomize-helm-plugin -- yq --version
+
+# inspect image
+kubectl get pod  argocd-repo-server-65b4c8fdd-7qk8t -o jsonpath='{.spec.containers[*].image}'
+# quay.io/argoproj/argocd:v2.12.6 quay.io/argoproj/argocd:v3.3.0
