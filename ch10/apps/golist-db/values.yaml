@@ -4,3 +4,7 @@ mariadb:
     database: "golist"
     username: "golist"
     password: "golist"
+  image:
+    registry: docker.io
+    repository: bitnamilegacy/mariadb
+    tag: "10.6"
