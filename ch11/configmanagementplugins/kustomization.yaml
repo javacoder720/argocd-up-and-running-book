@@ -25,3 +25,5 @@ patches:
       name: kustomize-helm
     data:
       specialValue: "Added by Kustomize"
+      env: "PLACEHOLDER_ENV"
+      parameters: "PLACEHOLDER_PARAMS"

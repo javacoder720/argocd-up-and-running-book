@@ -13,6 +13,14 @@ spec:
   source: # this is ok because it finds kustomization.yaml
     plugin:
       name: kustomize-helm
+      env:
+        - name: RELEASE_STAGE # this becomes ARGOCD_ENV_RELEASE_STAGE
+          value: "production"
+      parameters:
+        - name: "replica_count"
+          value: "5"
+        - name: "environment"
+          value: "prod"
     path: ch11/configmanagementplugins
     repoURL: https://github.com/javacoder720/argocd-up-and-running-book
     targetRevision: main

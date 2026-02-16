@@ -11,6 +11,12 @@ data:
       name: kustomize-helm
     spec:
       generate:
-        command: ["/bin/sh", "-c"]
-        args: ["kustomize build --enable-helm"]
+        args: 
+          - "/bin/sh"
+          - "-c"
+          - |
+            PARMS="replica_count=${ARGOCD_APP_PARAMETER_replica_count}, environment=${ARGOCD_APP_PARAMETER_environment}"
+            kustomize build --enable-helm | \
+            sed "s/PLACEHOLDER_ENV/${ARGOCD_ENV_RELEASE_STAGE}/g" | \
+            sed "s/PLACEHOLDER_PARAMS/${PARMS}/g"
 
