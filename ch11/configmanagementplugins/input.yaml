@@ -1,0 +1,6 @@
+data:
+  env:
+    RELEASE_STAGE: dev
+  params:
+    REPLICA_COUNT: 3
+    ENVIRONMENT: prod

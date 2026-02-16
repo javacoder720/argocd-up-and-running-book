@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  baseValue: Base Value
+  env: ""
+  params: ""
+  specialValue: Added by Kustomize
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: kustomize-helm
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kustomize-helm
+    helm.sh/chart: kustomize-helm-0.1.0
+  name: kustomize-helm

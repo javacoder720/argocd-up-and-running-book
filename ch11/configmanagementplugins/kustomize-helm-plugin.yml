@@ -42,8 +42,7 @@ data:
             # Gather all ARGOCD_APP_PARAMETER_ variables and strip prefix
             PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed 's/^ARGOCD_APP_PARAMETER_//' | awk -F= '{printf "  %s: %s\n", $1, $2}')
             
-            kustomize build --enable-helm | \
-            yq "
-              .data.env = \"\n${ENV_CONTENT}\" |
-              .data.params = \"\n${PARAM_CONTENT}\"
-            "
+            
+            kustomize build --enable-helm > /tmp/base.yaml
+            yq -n '.data.env = (strenv(ENV_CONTENT) | from_yaml) | .data.params = (strenv(PARAM_CONTENT) | from_yaml)' > /tmp/input.yaml
+            yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' /tmp/base.yaml /tmp/input.yaml
