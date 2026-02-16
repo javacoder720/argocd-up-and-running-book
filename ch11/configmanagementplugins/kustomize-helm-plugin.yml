@@ -38,9 +38,9 @@ data:
           - |
             export PATH=/tmp:$PATH
             # Gather all ARGOCD_ENV_ variables and strip prefix
-            ENV_CONTENT=$(env | grep "^ARGOCD_ENV_" | sed "s/^ARGOCD_ENV_//\" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            ENV_CONTENT=$(env | grep "^ARGOCD_ENV_" | sed 's/^ARGOCD_ENV_//' | awk -F= '{printf "  %s: %s\n", $1, $2}')
             # Gather all ARGOCD_APP_PARAMETER_ variables and strip prefix
-            PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed "s/^ARGOCD_APP_PARAMETER_" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed 's/^ARGOCD_APP_PARAMETER_//' | awk -F= '{printf "  %s: %s\n", $1, $2}')
             
             # Testing: Run only kustomize build
             # To enable dynamic injection, uncomment the yq section below and pipe kustomize output to it.
