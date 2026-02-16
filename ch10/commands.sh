@@ -13,6 +13,7 @@ kubectl get -n argocd cm/argocd-cm -o \
 kubectl apply -n argocd -f \
     ch10/argocd/applications/parent.yaml
 
+curl -L -s "https://registry.hub.docker.com/v2/repositories/bitnami/mariadb/tags/?page_size=20" > tags.json
 curl -L -s "https://registry.hub.docker.com/v2/repositories/bitnami/mariadb/tags/?page_size=20" \
     | jq -r '.results[].name'
 kubectl delete application parent -n argocd

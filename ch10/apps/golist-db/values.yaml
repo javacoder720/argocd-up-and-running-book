@@ -6,5 +6,5 @@ mariadb:
     password: "golist"
   image:
     registry: docker.io
-    repository: bitnamilegacy/mariadb
-    tag: "10.6"
+    repository: bitnami/mariadb
+    tag: "latest"
