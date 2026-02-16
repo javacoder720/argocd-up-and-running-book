@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argo-cd-argocd-repo-server
+  name: argocd-repo-server
   namespace: argocd
 spec:
   template:
@@ -15,14 +15,14 @@ spec:
           imagePullPolicy: IfNotPresent
           command: [/var/run/argocd/argocd-cmp-server]
           volumeMounts:
-            - mountPath: /var/run/argocd
+            - mountPath: /var/run/argocd # from repo server
               name: var-files
-            - mountPath: /home/argocd/cmp-server/plugins
+            - mountPath: /home/argocd/cmp-server/plugins # from repo server
               name: plugins
-            - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+            - mountPath: /home/argocd/cmp-server/config/plugin.yaml # we attached from the cm we created
               subPath: plugin.yaml
               name: kustomize-helm-plugin
-            - mountPath: /tmp
+            - mountPath: /tmp # we attached
               name: cmp-tmp
       volumes:
         - name: kustomize-helm-plugin

@@ -10,7 +10,9 @@ spec:
     namespace: kustomize-helm
     server: https://kubernetes.default.svc
   project: default
-  source:
+  source: # this is ok because it finds kustomization.yaml
+    plugin:
+      name: kustomize-helm
     path: ch11/configmanagementplugins
     repoURL: https://github.com/javacoder720/argocd-up-and-running-book
     targetRevision: main
