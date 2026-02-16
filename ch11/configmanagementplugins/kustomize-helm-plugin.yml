@@ -42,13 +42,8 @@ data:
             # Gather all ARGOCD_APP_PARAMETER_ variables and strip prefix
             PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed 's/^ARGOCD_APP_PARAMETER_//' | awk -F= '{printf "  %s: %s\n", $1, $2}')
             
-            # Testing: Run only kustomize build
-            # To enable dynamic injection, uncomment the yq section below and pipe kustomize output to it.
-            kustomize build --enable-helm
-            
-            # Optional: Dynamic injection (currently disabled)
-            # kustomize build --enable-helm | \
-            # yq "
-            #   .data.env = \"\n${ENV_CONTENT}\" |
-            #   .data.params = \"\n${PARAM_CONTENT}\"
-            # "
+            kustomize build --enable-helm | \
+            yq "
+              .data.env = \"\n${ENV_CONTENT}\" |
+              .data.params = \"\n${PARAM_CONTENT}\"
+            "
