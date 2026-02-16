@@ -22,20 +22,33 @@ data:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            wget -O /tmp/yq https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64 && \
-            chmod +x /tmp/yq
+            # Download yq
+            wget -O /tmp/yq https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64 && chmod +x /tmp/yq
+            
+            # Download kustomize
+            wget -O /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.1.1/kustomize_v5.1.1_linux_amd64.tar.gz
+            tar -xzf /tmp/kustomize.tar.gz -C /tmp && chmod +x /tmp/kustomize
+            
+            # Download helm
+            wget -O /tmp/helm.tar.gz https://get.helm.sh/helm-v3.13.1-linux-amd64.tar.gz
+            tar -xzf /tmp/helm.tar.gz -C /tmp --strip-components=1 linux-amd64/helm && chmod +x /tmp/helm
       generate:
         command: ["/bin/sh", "-c"]
         args: 
           - |
+            export PATH=/tmp:$PATH
             # Gather all ARGOCD_ENV_ variables and strip prefix
-            ENV_CONTENT=$(env | grep "^ARGOCD_ENV_" | sed "s/^ARGOCD_ENV_//" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            ENV_CONTENT=$(env | grep "^ARGOCD_ENV_" | sed "s/^ARGOCD_ENV_//\" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
             # Gather all ARGOCD_APP_PARAMETER_ variables and strip prefix
-            PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed "s/^ARGOCD_APP_PARAMETER_//" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
+            PARAM_CONTENT=$(env | grep "^ARGOCD_APP_PARAMETER_" | sed "s/^ARGOCD_APP_PARAMETER_" | awk -F= "{printf \"  %s: %s\n\", \$1, \$2}")
             
-            kustomize build --enable-helm | \
-            /tmp/yq "
-              .data.env = \"\n${ENV_CONTENT}\" |
-              .data.params = \"\n${PARAM_CONTENT}\"
-            "
-
+            # Testing: Run only kustomize build
+            # To enable dynamic injection, uncomment the yq section below and pipe kustomize output to it.
+            kustomize build --enable-helm
+            
+            # Optional: Dynamic injection (currently disabled)
+            # kustomize build --enable-helm | \
+            # yq "
+            #   .data.env = \"\n${ENV_CONTENT}\" |
+            #   .data.params = \"\n${PARAM_CONTENT}\"
+            # "

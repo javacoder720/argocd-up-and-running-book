@@ -18,9 +18,9 @@ spec:
           value: "production"
       parameters:
         - name: "replica_count"
-          value: "5"
+          string: "5"
         - name: "environment"
-          value: "prod"
+          string: "prod"
     path: ch11/configmanagementplugins
     repoURL: https://github.com/javacoder720/argocd-up-and-running-book
     targetRevision: main

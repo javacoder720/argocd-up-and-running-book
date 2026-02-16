@@ -21,6 +21,7 @@ kubectl get cm kustomize-helm -n kustomize-helm -oyaml
 # changes to CMP
 kubectl apply -f ch11/configmanagementplugins/kustomize-helm-plugin.yml
 kubectl -n argocd rollout restart deployment argocd-repo-server
+kubectl -n argocd rollout status deployment argocd-repo-server
 kubectl rollout pause deployment/argocd-repo-server
 kubectl apply -f ch11/configmanagementplugins/kustomize-helm-app.yaml
 
